@@ -1,0 +1,29 @@
+name: BoulderLog
+options:
+  bundleIdPrefix: com.boulderlog
+  deploymentTarget:
+    iOS: "17.0"
+targets:
+  BoulderLog:
+    type: application
+    platform: iOS
+    sources:
+      - BoulderLog
+    settings:
+      base:
+        SWIFT_VERSION: "5.9"
+        PRODUCT_BUNDLE_IDENTIFIER: com.boulderlog.BoulderLog
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_NSPhotoLibraryUsageDescription: "BoulderLog needs access to your photo library to import climbing videos."
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+  BoulderLogTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - BoulderLogTests
+    dependencies:
+      - target: BoulderLog
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.boulderlog.BoulderLogTests

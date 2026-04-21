@@ -1,0 +1,407 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2DB63D89FCAC9F2CF960D3A1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344618C9A959C12CC9CFA71B /* ContentView.swift */; };
+		4EA52099D559AE3DA125A6F7 /* Attempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A7BC45DFB92D311761A3CB /* Attempt.swift */; };
+		59CE5413C79C028906DF8656 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC9605346F3EFD6FC4403D7 /* Route.swift */; };
+		8AF68419911BD4F35E4588D0 /* RouteFingerprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C07B7FFD1DE1E3CCB44A171 /* RouteFingerprint.swift */; };
+		B7F1C2AD87ECC4081613F988 /* BoulderLogApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BD10721A6F72C4AE0A6F29 /* BoulderLogApp.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BB471C04D374162B8ACF772C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AF7500D6845DB81FB6682F63 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 866076745F1E28701D0CD4FE;
+			remoteInfo = BoulderLog;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		03BD10721A6F72C4AE0A6F29 /* BoulderLogApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoulderLogApp.swift; sourceTree = "<group>"; };
+		1C07B7FFD1DE1E3CCB44A171 /* RouteFingerprint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteFingerprint.swift; sourceTree = "<group>"; };
+		344618C9A959C12CC9CFA71B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5DD89146F3ACC8BB938060C3 /* BoulderLogTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BoulderLogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FC9605346F3EFD6FC4403D7 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		A3A7BC45DFB92D311761A3CB /* Attempt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attempt.swift; sourceTree = "<group>"; };
+		A6CFFB853F71662B44C9B2EE /* BoulderLog.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BoulderLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		5D2BBA237145B72B1CD3FD72 = {
+			isa = PBXGroup;
+			children = (
+				8DB7BA31CBC0FF63758687E5 /* BoulderLog */,
+				DAFAEA1BCEB106EF5FAA34A2 /* BoulderLogTests */,
+				A2FFD01F5A7627EFF3A0E70B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8DB7BA31CBC0FF63758687E5 /* BoulderLog */ = {
+			isa = PBXGroup;
+			children = (
+				03BD10721A6F72C4AE0A6F29 /* BoulderLogApp.swift */,
+				344618C9A959C12CC9CFA71B /* ContentView.swift */,
+				F8C1F5BA0C423F306959937E /* Models */,
+			);
+			path = BoulderLog;
+			sourceTree = "<group>";
+		};
+		A2FFD01F5A7627EFF3A0E70B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A6CFFB853F71662B44C9B2EE /* BoulderLog.app */,
+				5DD89146F3ACC8BB938060C3 /* BoulderLogTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DAFAEA1BCEB106EF5FAA34A2 /* BoulderLogTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BoulderLogTests;
+			sourceTree = "<group>";
+		};
+		F8C1F5BA0C423F306959937E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A3A7BC45DFB92D311761A3CB /* Attempt.swift */,
+				9FC9605346F3EFD6FC4403D7 /* Route.swift */,
+				1C07B7FFD1DE1E3CCB44A171 /* RouteFingerprint.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2DEF313D317805502F3C1FC1 /* BoulderLogTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 82B258E18A266598B0C786E2 /* Build configuration list for PBXNativeTarget "BoulderLogTests" */;
+			buildPhases = (
+				2E6E0FA72AF04BBCABFAE20F /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				695A6CB593B98464775717DD /* PBXTargetDependency */,
+			);
+			name = BoulderLogTests;
+			packageProductDependencies = (
+			);
+			productName = BoulderLogTests;
+			productReference = 5DD89146F3ACC8BB938060C3 /* BoulderLogTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		866076745F1E28701D0CD4FE /* BoulderLog */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 042FDDD4E0F9CD794BFF20EA /* Build configuration list for PBXNativeTarget "BoulderLog" */;
+			buildPhases = (
+				7E3479478D7D852158F1758D /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BoulderLog;
+			packageProductDependencies = (
+			);
+			productName = BoulderLog;
+			productReference = A6CFFB853F71662B44C9B2EE /* BoulderLog.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AF7500D6845DB81FB6682F63 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = ED58EC832E923EFEBBE32902 /* Build configuration list for PBXProject "BoulderLog" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 5D2BBA237145B72B1CD3FD72;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = A2FFD01F5A7627EFF3A0E70B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				866076745F1E28701D0CD4FE /* BoulderLog */,
+				2DEF313D317805502F3C1FC1 /* BoulderLogTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2E6E0FA72AF04BBCABFAE20F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7E3479478D7D852158F1758D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4EA52099D559AE3DA125A6F7 /* Attempt.swift in Sources */,
+				B7F1C2AD87ECC4081613F988 /* BoulderLogApp.swift in Sources */,
+				2DB63D89FCAC9F2CF960D3A1 /* ContentView.swift in Sources */,
+				59CE5413C79C028906DF8656 /* Route.swift in Sources */,
+				8AF68419911BD4F35E4588D0 /* RouteFingerprint.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		695A6CB593B98464775717DD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 866076745F1E28701D0CD4FE /* BoulderLog */;
+			targetProxy = BB471C04D374162B8ACF772C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0DDAF888891E55FFFAB6D3F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		AC8A1E436C8AB91053F061CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.boulderlog.BoulderLogTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BoulderLog.app/BoulderLog";
+			};
+			name = Debug;
+		};
+		C52B65D63ED08BB8B47148ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.boulderlog.BoulderLogTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BoulderLog.app/BoulderLog";
+			};
+			name = Release;
+		};
+		CA7048562AA87E160BC6DBC5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "BoulderLog needs access to your photo library to import climbing videos.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.boulderlog.BoulderLog;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D471235CB03294240CC119C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		FB8D90A8FE870F9EA93FEF03 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "BoulderLog needs access to your photo library to import climbing videos.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.boulderlog.BoulderLog;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		042FDDD4E0F9CD794BFF20EA /* Build configuration list for PBXNativeTarget "BoulderLog" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA7048562AA87E160BC6DBC5 /* Debug */,
+				FB8D90A8FE870F9EA93FEF03 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		82B258E18A266598B0C786E2 /* Build configuration list for PBXNativeTarget "BoulderLogTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC8A1E436C8AB91053F061CF /* Debug */,
+				C52B65D63ED08BB8B47148ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		ED58EC832E923EFEBBE32902 /* Build configuration list for PBXProject "BoulderLog" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D471235CB03294240CC119C9 /* Debug */,
+				0DDAF888891E55FFFAB6D3F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AF7500D6845DB81FB6682F63 /* Project object */;
+}
