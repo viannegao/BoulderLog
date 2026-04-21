@@ -13,6 +13,11 @@ final class ModelTests: XCTestCase {
         context = ModelContext(container)
     }
 
+    override func tearDown() {
+        context = nil
+        container = nil
+    }
+
     func test_route_defaultsToNotSent() throws {
         let route = Route(dominantColor: "#1A6BFF")
         context.insert(route)
@@ -23,8 +28,8 @@ final class ModelTests: XCTestCase {
 
     func test_attempt_linksToRoute() throws {
         let route = Route(dominantColor: "#FF6B35")
-        let attempt = Attempt(assetIdentifier: "test-id", route: route)
         context.insert(route)
+        let attempt = Attempt(assetIdentifier: "test-id", route: route)
         context.insert(attempt)
         try context.save()
         XCTAssertEqual(attempt.route.id, route.id)
