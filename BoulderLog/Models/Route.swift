@@ -26,7 +26,7 @@ final class Route {
 
 private func colorName(for hex: String) -> String {
     let knownColors: [(prefix: String, name: String)] = [
-        ("#FF", "Red"), ("#F0", "Orange"), ("#FF6", "Yellow"),
+        ("#FF6", "Yellow"), ("#FF", "Red"), ("#F0", "Orange"),
         ("#0", "Green"), ("#1", "Blue"), ("#6", "Purple"), ("#9", "Pink"),
     ]
     let upper = hex.uppercased()

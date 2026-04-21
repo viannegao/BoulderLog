@@ -16,6 +16,7 @@ final class ModelTests: XCTestCase {
     override func tearDown() {
         context = nil
         container = nil
+        super.tearDown()
     }
 
     func test_route_defaultsToNotSent() throws {
@@ -40,6 +41,9 @@ final class ModelTests: XCTestCase {
         let fp = RouteFingerprint(routeId: UUID(), descriptor: [0.1, 0.2, 0.3], dominantHue: 0.6)
         context.insert(fp)
         try context.save()
-        XCTAssertEqual(fp.descriptor, [0.1, 0.2, 0.3])
+        XCTAssertEqual(fp.descriptor.count, 3)
+        XCTAssertEqual(fp.descriptor[0], 0.1, accuracy: 0.0001)
+        XCTAssertEqual(fp.descriptor[1], 0.2, accuracy: 0.0001)
+        XCTAssertEqual(fp.descriptor[2], 0.3, accuracy: 0.0001)
     }
 }
