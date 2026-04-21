@@ -28,13 +28,42 @@
 		03BD10721A6F72C4AE0A6F29 /* BoulderLogApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoulderLogApp.swift; sourceTree = "<group>"; };
 		1C07B7FFD1DE1E3CCB44A171 /* RouteFingerprint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteFingerprint.swift; sourceTree = "<group>"; };
 		344618C9A959C12CC9CFA71B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		42770EEB4A676B8B71C271A0 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		58629E2086CDBC3E7A8B52B7 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		5DD89146F3ACC8BB938060C3 /* BoulderLogTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BoulderLogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A1AD0446F3D5C518D01F7BE /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		9FC9605346F3EFD6FC4403D7 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		A3A7BC45DFB92D311761A3CB /* Attempt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attempt.swift; sourceTree = "<group>"; };
+		A681499139A1CA36452439F3 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		A6CFFB853F71662B44C9B2EE /* BoulderLog.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BoulderLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3549CB53702C3DA88767008 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		0C8F7FA71753C8C61B5C486F /* Detection */ = {
+			isa = PBXGroup;
+			children = (
+				A681499139A1CA36452439F3 /* .gitkeep */,
+			);
+			path = Detection;
+			sourceTree = "<group>";
+		};
+		4D50BADE00F8BA6AE1891A54 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				42770EEB4A676B8B71C271A0 /* .gitkeep */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5800566033C2172221791E4E /* Detection */ = {
+			isa = PBXGroup;
+			children = (
+				E3549CB53702C3DA88767008 /* .gitkeep */,
+			);
+			path = Detection;
+			sourceTree = "<group>";
+		};
 		5D2BBA237145B72B1CD3FD72 = {
 			isa = PBXGroup;
 			children = (
@@ -44,12 +73,31 @@
 			);
 			sourceTree = "<group>";
 		};
+		81B90C9B0D85253A188DFAE0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7A1AD0446F3D5C518D01F7BE /* .gitkeep */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		82AE9ABEAF0B25BD16A0C869 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				58629E2086CDBC3E7A8B52B7 /* .gitkeep */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		8DB7BA31CBC0FF63758687E5 /* BoulderLog */ = {
 			isa = PBXGroup;
 			children = (
 				03BD10721A6F72C4AE0A6F29 /* BoulderLogApp.swift */,
 				344618C9A959C12CC9CFA71B /* ContentView.swift */,
+				5800566033C2172221791E4E /* Detection */,
 				F8C1F5BA0C423F306959937E /* Models */,
+				82AE9ABEAF0B25BD16A0C869 /* ViewModels */,
+				4D50BADE00F8BA6AE1891A54 /* Views */,
 			);
 			path = BoulderLog;
 			sourceTree = "<group>";
@@ -66,6 +114,8 @@
 		DAFAEA1BCEB106EF5FAA34A2 /* BoulderLogTests */ = {
 			isa = PBXGroup;
 			children = (
+				0C8F7FA71753C8C61B5C486F /* Detection */,
+				81B90C9B0D85253A188DFAE0 /* Models */,
 			);
 			path = BoulderLogTests;
 			sourceTree = "<group>";

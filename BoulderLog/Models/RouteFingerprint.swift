@@ -1,7 +1,6 @@
-import Foundation
 import SwiftData
 
 @Model
-class RouteFingerprint {
+final class RouteFingerprint {
     init() {}
 }

@@ -1,7 +1,6 @@
-import Foundation
 import SwiftData
 
 @Model
-class Route {
+final class Route {
     init() {}
 }

@@ -1,7 +1,6 @@
-import Foundation
 import SwiftData
 
 @Model
-class Attempt {
+final class Attempt {
     init() {}
 }
