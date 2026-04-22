@@ -11,8 +11,10 @@ struct ImportPipeline {
 
     static func analyze(assetIdentifier: String, context: ModelContext) async throws -> Result {
         // Duplicate check
-        let existingAttempts = try context.fetch(FetchDescriptor<Attempt>())
-        if let dup = existingAttempts.first(where: { $0.assetIdentifier == assetIdentifier }) {
+        let id = assetIdentifier
+        var dupFD = FetchDescriptor<Attempt>(predicate: #Predicate { $0.assetIdentifier == id })
+        dupFD.fetchLimit = 1
+        if let dup = try context.fetch(dupFD).first {
             return .duplicate(existingAttempt: dup)
         }
 
@@ -68,8 +70,10 @@ struct ImportPipeline {
         applyAttemptMetadata(attempt, to: route, isSend: isSend)
 
         // Create fingerprint if not already stored for this route
-        let fingerprints = try context.fetch(FetchDescriptor<RouteFingerprint>())
-        if fingerprints.first(where: { $0.routeId == route.id }) == nil {
+        let rid = route.id
+        var fpFD = FetchDescriptor<RouteFingerprint>(predicate: #Predicate { $0.routeId == rid })
+        fpFD.fetchLimit = 1
+        if try context.fetch(fpFD).isEmpty {
             let fp = RouteFingerprint(routeId: route.id,
                                      descriptor: descriptor.centroidDistances,
                                      dominantHue: descriptor.dominantHue)
