@@ -6,6 +6,7 @@ struct AttemptRowView: View {
 
     private enum AssetState { case loading, loaded(UIImage), unavailable }
     @State private var assetState: AssetState = .loading
+    @State private var showingHolds = false
 
     var body: some View {
         HStack(spacing: 12) {
@@ -25,9 +26,20 @@ struct AttemptRowView: View {
                 }
             }
             Spacer()
+            Button {
+                showingHolds = true
+            } label: {
+                Image(systemName: "sparkles")
+                    .foregroundStyle(.indigo)
+                    .padding(.horizontal, 4)
+            }
+            .buttonStyle(.plain)
             sendBadge
         }
         .task { await loadAsset() }
+        .sheet(isPresented: $showingHolds) {
+            HoldsVisualizationSheet(assetIdentifier: attempt.assetIdentifier)
+        }
     }
 
     private var thumbnailView: some View {
