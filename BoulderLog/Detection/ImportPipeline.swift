@@ -98,20 +98,20 @@ struct ImportPipeline {
 
         try context.save()
     }
-}
 
-private func hueToHex(_ hue: Float) -> String {
-    // Convert HSV hue (full saturation/value) to hex for display
-    let h = Double(hue) * 360
-    let c = 1.0, x = c * (1 - abs((h / 60).truncatingRemainder(dividingBy: 2) - 1))
-    var r = 0.0, g = 0.0, b = 0.0
-    switch h {
-    case 0..<60:    r = c; g = x
-    case 60..<120:  r = x; g = c
-    case 120..<180: g = c; b = x
-    case 180..<240: g = x; b = c
-    case 240..<300: r = x; b = c
-    default:        r = c; b = x
+    private static func hueToHex(_ hue: Float) -> String {
+        // Convert HSV hue (full saturation/value) to hex for display
+        let h = Double(hue) * 360
+        let c = 1.0, x = c * (1 - abs((h / 60).truncatingRemainder(dividingBy: 2) - 1))
+        var r = 0.0, g = 0.0, b = 0.0
+        switch h {
+        case 0..<60:    r = c; g = x
+        case 60..<120:  r = x; g = c
+        case 120..<180: g = c; b = x
+        case 180..<240: g = x; b = c
+        case 240..<300: r = x; b = c
+        default:        r = c; b = x
+        }
+        return String(format: "#%02X%02X%02X", Int(r * 255), Int(g * 255), Int(b * 255))
     }
-    return String(format: "#%02X%02X%02X", Int(r * 255), Int(g * 255), Int(b * 255))
 }
