@@ -6,7 +6,7 @@ final class ModelTests: XCTestCase {
     var container: ModelContainer!
     var context: ModelContext!
 
-    override func setUp() throws {
+    override func setUpWithError() throws {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         container = try ModelContainer(for: Route.self, Attempt.self, RouteFingerprint.self,
                                        configurations: config)

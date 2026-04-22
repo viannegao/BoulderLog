@@ -30,3 +30,4 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.boulderlog.BoulderLogTests
+        GENERATE_INFOPLIST_FILE: YES
