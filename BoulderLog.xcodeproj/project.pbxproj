@@ -13,6 +13,8 @@
 		52A70A208B92D19B9BD9C3A0 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D434D1B16F9FCA4F3F133DCE /* ModelTests.swift */; };
 		55134B1D31777EB2DCA32726 /* FrameExtractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EC2FD8CB00364AEEC39F9D /* FrameExtractorTests.swift */; };
 		59CE5413C79C028906DF8656 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC9605346F3EFD6FC4403D7 /* Route.swift */; };
+		7421D3698020BBBE4CD0791B /* HoldSegmenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A50E58C83A763FE04A5409 /* HoldSegmenter.swift */; };
+		8534DAE047D3FC0622C28990 /* HoldSegmenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A9D27B85CF8478908590D9 /* HoldSegmenterTests.swift */; };
 		8AF68419911BD4F35E4588D0 /* RouteFingerprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C07B7FFD1DE1E3CCB44A171 /* RouteFingerprint.swift */; };
 		B7F1C2AD87ECC4081613F988 /* BoulderLogApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BD10721A6F72C4AE0A6F29 /* BoulderLogApp.swift */; };
 		F905228DCC1D2C58CA9727E3 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6E5CB8759DB53BC07BE91E /* Types.swift */; };
@@ -43,8 +45,10 @@
 		A6CFFB853F71662B44C9B2EE /* BoulderLog.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BoulderLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3EC2FD8CB00364AEEC39F9D /* FrameExtractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameExtractorTests.swift; sourceTree = "<group>"; };
 		D434D1B16F9FCA4F3F133DCE /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
+		D5A50E58C83A763FE04A5409 /* HoldSegmenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldSegmenter.swift; sourceTree = "<group>"; };
 		DF6E5CB8759DB53BC07BE91E /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		E3549CB53702C3DA88767008 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		F7A9D27B85CF8478908590D9 /* HoldSegmenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldSegmenterTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -53,6 +57,7 @@
 			children = (
 				A681499139A1CA36452439F3 /* .gitkeep */,
 				C3EC2FD8CB00364AEEC39F9D /* FrameExtractorTests.swift */,
+				F7A9D27B85CF8478908590D9 /* HoldSegmenterTests.swift */,
 			);
 			path = Detection;
 			sourceTree = "<group>";
@@ -70,6 +75,7 @@
 			children = (
 				E3549CB53702C3DA88767008 /* .gitkeep */,
 				7C35DC3817E488EC9B0B6EEA /* FrameExtractor.swift */,
+				D5A50E58C83A763FE04A5409 /* HoldSegmenter.swift */,
 				DF6E5CB8759DB53BC07BE91E /* Types.swift */,
 			);
 			path = Detection;
@@ -217,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55134B1D31777EB2DCA32726 /* FrameExtractorTests.swift in Sources */,
+				8534DAE047D3FC0622C28990 /* HoldSegmenterTests.swift in Sources */,
 				52A70A208B92D19B9BD9C3A0 /* ModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,6 +236,7 @@
 				B7F1C2AD87ECC4081613F988 /* BoulderLogApp.swift in Sources */,
 				2DB63D89FCAC9F2CF960D3A1 /* ContentView.swift in Sources */,
 				0ABE78046C153066C2313DB0 /* FrameExtractor.swift in Sources */,
+				7421D3698020BBBE4CD0791B /* HoldSegmenter.swift in Sources */,
 				59CE5413C79C028906DF8656 /* Route.swift in Sources */,
 				8AF68419911BD4F35E4588D0 /* RouteFingerprint.swift in Sources */,
 				F905228DCC1D2C58CA9727E3 /* Types.swift in Sources */,
