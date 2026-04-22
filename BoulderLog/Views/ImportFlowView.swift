@@ -54,8 +54,8 @@ struct ImportFlowView: View {
         case .newRoute(let descriptor):
             newRouteView(descriptor: descriptor)
 
-        case .noHoldsDetected:
-            manualPickView(message: "Couldn't detect holds — pick manually")
+        case .noHoldsDetected(let descriptor):
+            manualPickView(message: "Couldn't detect holds — pick manually", descriptor: descriptor)
 
         case .duplicate:
             VStack(spacing: 16) {
@@ -101,9 +101,10 @@ struct ImportFlowView: View {
             Section {
                 Button("Add as Attempt") {
                     guard let id = viewModel.currentAssetIdentifier else { return }
-                    viewModel.confirm(assetIdentifier: id, route: route,
-                                     descriptor: descriptor, context: modelContext)
-                    dismiss()
+                    if viewModel.confirm(assetIdentifier: id, route: route,
+                                        descriptor: descriptor, context: modelContext) {
+                        dismiss()
+                    }
                 }
                 .frame(maxWidth: .infinity)
                 .bold()
@@ -111,9 +112,10 @@ struct ImportFlowView: View {
                 if isAmbiguous {
                     Button("Create New Route Instead") {
                         guard let id = viewModel.currentAssetIdentifier else { return }
-                        viewModel.confirmNewRoute(assetIdentifier: id,
-                                                  descriptor: descriptor, context: modelContext)
-                        dismiss()
+                        if viewModel.confirmNewRoute(assetIdentifier: id,
+                                                    descriptor: descriptor, context: modelContext) {
+                            dismiss()
+                        }
                     }
                     .frame(maxWidth: .infinity)
                     .foregroundStyle(.secondary)
@@ -138,9 +140,10 @@ struct ImportFlowView: View {
             Section {
                 Button("Create Route & Add Attempt") {
                     guard let id = viewModel.currentAssetIdentifier else { return }
-                    viewModel.confirmNewRoute(assetIdentifier: id,
-                                              descriptor: descriptor, context: modelContext)
-                    dismiss()
+                    if viewModel.confirmNewRoute(assetIdentifier: id,
+                                                descriptor: descriptor, context: modelContext) {
+                        dismiss()
+                    }
                 }
                 .frame(maxWidth: .infinity)
                 .bold()
@@ -148,7 +151,7 @@ struct ImportFlowView: View {
         }
     }
 
-    private func manualPickView(message: String) -> some View {
+    private func manualPickView(message: String, descriptor: RouteDescriptor?) -> some View {
         List {
             Section {
                 Text(message).foregroundStyle(.secondary).font(.caption)
@@ -160,9 +163,10 @@ struct ImportFlowView: View {
                                                    dominantHue: 0,
                                                    normalizedCentroids: [])
                         guard let id = viewModel.currentAssetIdentifier else { return }
-                        viewModel.confirm(assetIdentifier: id, route: route,
-                                          descriptor: desc, context: modelContext)
-                        dismiss()
+                        if viewModel.confirm(assetIdentifier: id, route: route,
+                                             descriptor: desc, context: modelContext) {
+                            dismiss()
+                        }
                     } label: {
                         HStack {
                             Circle().fill(Color(hex: route.dominantColor)).frame(width: 20, height: 20)
@@ -178,9 +182,10 @@ struct ImportFlowView: View {
                                                dominantHue: 0,
                                                normalizedCentroids: [])
                     guard let id = viewModel.currentAssetIdentifier else { return }
-                    viewModel.confirmNewRoute(assetIdentifier: id,
-                                              descriptor: desc, context: modelContext)
-                    dismiss()
+                    if viewModel.confirmNewRoute(assetIdentifier: id,
+                                                descriptor: desc, context: modelContext) {
+                        dismiss()
+                    }
                 }
             }
         }

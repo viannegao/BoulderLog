@@ -48,23 +48,36 @@ final class ImportViewModel {
 
     @MainActor
     func confirm(assetIdentifier: String, route: Route, descriptor: RouteDescriptor,
-                 context: ModelContext) {
-        try? ImportPipeline.save(assetIdentifier: assetIdentifier, to: route,
-                                 isSend: isSend, notes: notes,
-                                 descriptor: descriptor, context: context)
-        reset()
+                 context: ModelContext) -> Bool {
+        do {
+            try ImportPipeline.save(assetIdentifier: assetIdentifier, to: route,
+                                    isSend: isSend, notes: notes,
+                                    descriptor: descriptor, context: context)
+            reset()
+            return true
+        } catch {
+            state = .error(error.localizedDescription)
+            return false
+        }
     }
 
     @MainActor
     func confirmNewRoute(assetIdentifier: String, descriptor: RouteDescriptor,
-                         context: ModelContext) {
-        try? ImportPipeline.saveAsNewRoute(assetIdentifier: assetIdentifier,
-                                           descriptor: descriptor,
-                                           isSend: isSend, notes: notes,
-                                           context: context)
-        reset()
+                         context: ModelContext) -> Bool {
+        do {
+            try ImportPipeline.saveAsNewRoute(assetIdentifier: assetIdentifier,
+                                              descriptor: descriptor,
+                                              isSend: isSend, notes: notes,
+                                              context: context)
+            reset()
+            return true
+        } catch {
+            state = .error(error.localizedDescription)
+            return false
+        }
     }
 
+    @MainActor
     private func reset() {
         currentAssetIdentifier = nil
         state = .idle
