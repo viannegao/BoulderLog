@@ -7,6 +7,12 @@ struct HoldCandidate {
     let pixelCount: Int
 }
 
+struct HoldGroup: Identifiable {
+    let id = UUID()
+    let hue: Float
+    let candidates: [HoldCandidate]
+}
+
 struct RouteDescriptor {
     let centroidDistances: [Float]           // sorted pairwise distances between bounding-box-normalized centroids
     let dominantHue: Float

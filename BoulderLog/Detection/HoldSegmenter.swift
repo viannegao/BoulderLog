@@ -2,17 +2,26 @@ import CoreImage
 import CoreGraphics
 
 struct HoldSegmenter {
-    private static let targetWidth = 160
-    private static let targetHeight = 120
-    private static let minimumBlobPixels = 8
+    private static let targetWidth = 320
+    private static let targetHeight = 240
+    private static let minimumBlobPixels = 5
     private static let saturationThreshold: Float = 0.30
     private static let brightnessThreshold: Float  = 0.20
     private static let hueBinCount = 20
     private static let ciContext = CIContext()
 
+    // Original single-route detection used by ImportPipeline
     static func detectHolds(in image: CIImage) throws -> (candidates: [HoldCandidate], dominantHue: Float) {
+        let groups = try detectAllHoldGroups(in: image)
+        guard let top = groups.first else { return ([], 0) }
+        return (top.candidates, top.hue)
+    }
+
+    // Detects every distinct color group — used by the visualization UI
+    static func detectAllHoldGroups(in image: CIImage) throws -> [HoldGroup] {
         let (pixels, w, h) = try rasterize(image)
 
+        // Classify every saturated pixel into a hue bin
         var hueBins = [[Int]](repeating: [], count: hueBinCount)
         for i in 0..<(w * h) {
             let r = Float(pixels[i*4])   / 255.0
@@ -24,19 +33,35 @@ struct HoldSegmenter {
             hueBins[bin].append(i)
         }
 
-        guard let (dominantBinIdx, dominantPixels) = hueBins.enumerated()
-            .max(by: { $0.element.count < $1.element.count }),
-              dominantPixels.count >= minimumBlobPixels else {
-            return ([], 0)
+        // For each bin with enough pixels, segment into blobs and collect groups
+        var groups: [HoldGroup] = []
+        for (binIdx, binPixels) in hueBins.enumerated() {
+            guard binPixels.count >= minimumBlobPixels else { continue }
+            let hue = (Float(binIdx) + 0.5) / Float(hueBinCount)
+            let blobs = findBlobs(pixels: binPixels, w: w, h: h)
+            let candidates: [HoldCandidate] = blobs.map { blob in
+                let xSum = blob.reduce(0) { $0 + ($1 % w) }
+                let ySum = blob.reduce(0) { $0 + ($1 / w) }
+                let cx = Float(xSum) / Float(blob.count) / Float(w)
+                let cy = Float(ySum) / Float(blob.count) / Float(h)
+                return HoldCandidate(centroid: SIMD2<Float>(cx, cy),
+                                     hue: hue,
+                                     pixelCount: blob.count)
+            }
+            if !candidates.isEmpty {
+                groups.append(HoldGroup(hue: hue, candidates: candidates))
+            }
         }
+        // Most holds first so the likely route color appears at the front of the picker
+        return groups.sorted { $0.candidates.count > $1.candidates.count }
+    }
 
-        let dominantHue = (Float(dominantBinIdx) + 0.5) / Float(hueBinCount)
-        let pixelSet = Set(dominantPixels)
-
+    // BFS connected-component labelling within a set of pre-classified pixels
+    private static func findBlobs(pixels: [Int], w: Int, h: Int) -> [[Int]] {
+        let pixelSet = Set(pixels)
         var visited = Set<Int>()
         var blobs: [[Int]] = []
-
-        for start in dominantPixels {
+        for start in pixels {
             guard !visited.contains(start) else { continue }
             var blob: [Int] = []
             var queue = [start]
@@ -58,18 +83,7 @@ struct HoldSegmenter {
             }
             if blob.count >= minimumBlobPixels { blobs.append(blob) }
         }
-
-        let candidates: [HoldCandidate] = blobs.map { blob in
-            let xSum = blob.reduce(0) { $0 + ($1 % w) }
-            let ySum = blob.reduce(0) { $0 + ($1 / w) }
-            let cx = Float(xSum) / Float(blob.count) / Float(w)
-            let cy = Float(ySum) / Float(blob.count) / Float(h)
-            return HoldCandidate(centroid: SIMD2<Float>(cx, cy),
-                                 hue: dominantHue,
-                                 pixelCount: blob.count)
-        }
-
-        return (candidates, dominantHue)
+        return blobs
     }
 
     private static func rasterize(_ image: CIImage) throws -> (pixels: [UInt8], width: Int, height: Int) {
