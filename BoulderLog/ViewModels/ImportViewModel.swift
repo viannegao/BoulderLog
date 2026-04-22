@@ -22,10 +22,11 @@ final class ImportViewModel {
     @MainActor
     func processSelection(assetIdentifier: String, context: ModelContext) async {
         state = .processing
-        let identifier = assetIdentifier
-        currentAssetIdentifier = identifier
+        currentAssetIdentifier = assetIdentifier
         do {
-            let result = try await ImportPipeline.analyze(assetIdentifier: identifier, context: context)
+            let result = try await withTimeout(seconds: 30) {
+                try await ImportPipeline.analyze(assetIdentifier: assetIdentifier, context: context)
+            }
             switch result {
             case .matched(let route, let confidence, let descriptor):
                 state = confidence >= 0.7
@@ -40,6 +41,19 @@ final class ImportViewModel {
             }
         } catch {
             state = .error(error.localizedDescription)
+        }
+    }
+
+    private func withTimeout<T: Sendable>(seconds: Double, operation: @escaping @Sendable () async throws -> T) async throws -> T {
+        try await withThrowingTaskGroup(of: T.self) { group in
+            group.addTask { try await operation() }
+            group.addTask {
+                try await Task.sleep(for: .seconds(seconds))
+                throw CancellationError()
+            }
+            let result = try await group.next()!
+            group.cancelAll()
+            return result
         }
     }
 

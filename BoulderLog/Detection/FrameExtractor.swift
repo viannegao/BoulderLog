@@ -37,12 +37,17 @@ struct FrameExtractor {
     private static func loadAVAsset(from phAsset: PHAsset) async throws -> AVAsset {
         try await withCheckedThrowingContinuation { continuation in
             let options = PHVideoRequestOptions()
-            options.isNetworkAccessAllowed = false
-            PHImageManager.default().requestAVAsset(forVideo: phAsset, options: options) { asset, _, _ in
+            options.isNetworkAccessAllowed = true   // allow iCloud download if video isn't on device
+            options.deliveryMode = .highQualityFormat
+            var resumed = false
+            PHImageManager.default().requestAVAsset(forVideo: phAsset, options: options) { asset, _, info in
+                guard !resumed else { return }
+                resumed = true
                 if let asset {
                     continuation.resume(returning: asset)
                 } else {
-                    continuation.resume(throwing: DetectionError.couldNotLoadAsset)
+                    let err = (info?[PHImageErrorKey] as? Error) ?? DetectionError.couldNotLoadAsset
+                    continuation.resume(throwing: err)
                 }
             }
         }

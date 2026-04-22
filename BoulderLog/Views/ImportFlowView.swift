@@ -40,6 +40,9 @@ struct ImportFlowView: View {
             VStack(spacing: 16) {
                 ProgressView()
                 Text("Detecting holds…").foregroundStyle(.secondary)
+                Text("This may take up to 30 seconds")
+                    .font(.caption2)
+                    .foregroundStyle(.tertiary)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
