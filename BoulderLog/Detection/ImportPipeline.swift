@@ -23,7 +23,7 @@ struct ImportPipeline {
         var bestCandidates: [HoldCandidate] = []
         var bestHue: Float = 0
         for frame in frames {
-            let (candidates, hue) = try HoldSegmenter.detectHolds(in: frame)
+            guard let (candidates, hue) = try? HoldSegmenter.detectHolds(in: frame) else { continue }
             if candidates.count > bestCandidates.count {
                 bestCandidates = candidates
                 bestHue = hue
@@ -47,8 +47,10 @@ struct ImportPipeline {
         }
 
         // Resolve Route from matched routeId
-        let routes = try context.fetch(FetchDescriptor<Route>())
-        guard let route = routes.first(where: { $0.id == match.routeId }) else {
+        let targetId = match.routeId
+        var routeFD = FetchDescriptor<Route>(predicate: #Predicate { $0.id == targetId })
+        routeFD.fetchLimit = 1
+        guard let route = try context.fetch(routeFD).first else {
             return .newRoute(descriptor: descriptor)
         }
 
@@ -63,8 +65,7 @@ struct ImportPipeline {
         let attempt = Attempt(assetIdentifier: assetIdentifier, route: route,
                               isSend: isSend, notes: notes)
         context.insert(attempt)
-        route.lastAttemptAt = attempt.date
-        if isSend { route.isSent = true }
+        applyAttemptMetadata(attempt, to: route, isSend: isSend)
 
         // Create fingerprint if not already stored for this route
         let fingerprints = try context.fetch(FetchDescriptor<RouteFingerprint>())
@@ -88,8 +89,7 @@ struct ImportPipeline {
         let attempt = Attempt(assetIdentifier: assetIdentifier, route: route,
                               isSend: isSend, notes: notes)
         context.insert(attempt)
-        route.lastAttemptAt = attempt.date
-        if isSend { route.isSent = true }
+        applyAttemptMetadata(attempt, to: route, isSend: isSend)
 
         let fp = RouteFingerprint(routeId: route.id,
                                   descriptor: descriptor.centroidDistances,
@@ -97,6 +97,11 @@ struct ImportPipeline {
         context.insert(fp)
 
         try context.save()
+    }
+
+    private static func applyAttemptMetadata(_ attempt: Attempt, to route: Route, isSend: Bool) {
+        route.lastAttemptAt = attempt.date
+        if isSend && !route.isSent { route.isSent = true }
     }
 
     private static func hueToHex(_ hue: Float) -> String {
