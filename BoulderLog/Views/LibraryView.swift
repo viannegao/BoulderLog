@@ -97,6 +97,7 @@ struct RouteCardView: View {
 }
 
 extension Color {
+    // Invalid or empty hex strings silently fall back to black (Scanner returns 0 on failure).
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int: UInt64 = 0
@@ -106,14 +107,4 @@ extension Color {
         let b = Double(int         & 0xFF) / 255
         self.init(red: r, green: g, blue: b)
     }
-}
-
-// Stubs — replaced in Tasks 9 and 10
-struct RouteDetailView: View {
-    let route: Route
-    var body: some View { Text(route.name) }
-}
-
-struct ImportFlowView: View {
-    var body: some View { Text("Import") }
 }
