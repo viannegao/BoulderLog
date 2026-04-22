@@ -8,7 +8,7 @@ struct HoldCandidate {
 }
 
 struct RouteDescriptor {
-    let centroidDistances: [Float]           // sorted pairwise distances, normalized
+    let centroidDistances: [Float]           // sorted pairwise distances between bounding-box-normalized centroids
     let dominantHue: Float
     let normalizedCentroids: [SIMD2<Float>]  // for UI hold overlay
 }
