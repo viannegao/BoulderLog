@@ -67,16 +67,23 @@ struct VideoPlayerSheet: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        Group {
-            if let player {
-                VideoPlayer(player: player)
-                    .ignoresSafeArea()
-            } else {
-                ProgressView()
+        NavigationStack {
+            Group {
+                if let player {
+                    VideoPlayer(player: player)
+                        .ignoresSafeArea()
+                } else {
+                    ProgressView()
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Done") { dismiss() }
+                }
             }
         }
         .task { player = await makePlayer() }
-        .toolbar { ToolbarItem(placement: .topBarTrailing) { Button("Done") { dismiss() } } }
     }
 
     private func makePlayer() async -> AVPlayer? {
@@ -85,9 +92,15 @@ struct VideoPlayerSheet: View {
         return await withCheckedContinuation { continuation in
             let opts = PHVideoRequestOptions()
             opts.isNetworkAccessAllowed = false
+            var resumed = false
             PHImageManager.default().requestAVAsset(forVideo: asset, options: opts) { avAsset, _, _ in
-                if let avAsset { continuation.resume(returning: AVPlayer(playerItem: AVPlayerItem(asset: avAsset))) }
-                else { continuation.resume(returning: nil) }
+                guard !resumed else { return }
+                resumed = true
+                if let avAsset {
+                    continuation.resume(returning: AVPlayer(playerItem: AVPlayerItem(asset: avAsset)))
+                } else {
+                    continuation.resume(returning: nil)
+                }
             }
         }
     }
