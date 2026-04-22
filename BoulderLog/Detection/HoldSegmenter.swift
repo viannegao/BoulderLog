@@ -8,6 +8,7 @@ struct HoldSegmenter {
     private static let saturationThreshold: Float = 0.30
     private static let brightnessThreshold: Float  = 0.20
     private static let hueBinCount = 20
+    private static let ciContext = CIContext()
 
     static func detectHolds(in image: CIImage) throws -> (candidates: [HoldCandidate], dominantHue: Float) {
         let (pixels, w, h) = try rasterize(image)
@@ -86,8 +87,7 @@ struct HoldSegmenter {
             bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
         ) else { throw DetectionError.renderFailed }
 
-        let ciCtx = CIContext()
-        guard let cg = ciCtx.createCGImage(scaled, from: scaled.extent) else {
+        guard let cg = ciContext.createCGImage(scaled, from: scaled.extent) else {
             throw DetectionError.renderFailed
         }
         bitmapCtx.draw(cg, in: CGRect(x: 0, y: 0, width: w, height: h))
