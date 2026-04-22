@@ -32,12 +32,12 @@ struct RouteMatcher {
         return MatchResult(routeId: id, confidence: confidence)
     }
 
-    // Normalised L2 distance, padding shorter array with 1.0
+    // Normalised L2 distance, padding shorter array with 0.0
     private static func l2Distance(_ a: [Float], _ b: [Float]) -> Float {
         let len = max(a.count, b.count)
         guard len > 0 else { return 0 }
-        let paddedA = a + [Float](repeating: 1.0, count: len - a.count)
-        let paddedB = b + [Float](repeating: 1.0, count: len - b.count)
+        let paddedA = a + [Float](repeating: 0.0, count: len - a.count)
+        let paddedB = b + [Float](repeating: 0.0, count: len - b.count)
         let sumSq = zip(paddedA, paddedB).reduce(Float(0)) { $0 + ($1.0 - $1.1) * ($1.0 - $1.1) }
         return sqrt(sumSq / Float(len))
     }

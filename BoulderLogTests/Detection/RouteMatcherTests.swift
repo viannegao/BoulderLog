@@ -45,4 +45,23 @@ final class RouteMatcherTests: XCTestCase {
         let result = RouteMatcher.match(descriptor: query, hue: 0.6, against: fingerprints)
         XCTAssertEqual(result?.routeId, closeId)
     }
+
+    func test_hueWraparound_nearRedBoundary_matches() {
+        let desc: [Float] = [0.1, 0.2, 0.3]
+        // stored at hue 0.02 (just above 0, red-ish)
+        // query at hue 0.97 (just below 1, also red-ish)
+        // straight diff = 0.95 → would fail gate without wraparound
+        // wrapped diff  = 0.05 → should pass gate and match
+        let fp = FingerprintRecord(routeId: UUID(), descriptor: desc, dominantHue: 0.02)
+        let result = RouteMatcher.match(descriptor: desc, hue: 0.97, against: [fp])
+        XCTAssertNotNil(result, "Wraparound hue should match near-red fingerprint")
+    }
+
+    func test_hueWraparound_nearRedBoundary_tooFar_returnsNil() {
+        let desc: [Float] = [0.1, 0.2, 0.3]
+        // wrapped diff = min(0.85, 0.15) = 0.15 → exceeds gate of 0.10
+        let fp = FingerprintRecord(routeId: UUID(), descriptor: desc, dominantHue: 0.0)
+        let result = RouteMatcher.match(descriptor: desc, hue: 0.85, against: [fp])
+        XCTAssertNil(result)
+    }
 }
