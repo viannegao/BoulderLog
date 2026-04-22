@@ -21,12 +21,15 @@ final class ImportViewModel {
 
     @MainActor
     func processSelection(assetIdentifier: String, context: ModelContext) async {
+        print("[BoulderLog] processSelection started, identifier: \(assetIdentifier)")
         state = .processing
         currentAssetIdentifier = assetIdentifier
         do {
+            print("[BoulderLog] calling analyze...")
             let result = try await withTimeout(seconds: 30) {
                 try await ImportPipeline.analyze(assetIdentifier: assetIdentifier, context: context)
             }
+            print("[BoulderLog] analyze returned: \(result)")
             switch result {
             case .matched(let route, let confidence, let descriptor):
                 state = confidence >= 0.7
