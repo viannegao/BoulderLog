@@ -130,7 +130,9 @@ struct ImportFlowView: View {
                             .font(.caption).foregroundStyle(.secondary)
                     }
                 }
-                holdsOverlay(descriptor: descriptor)
+                if let id = viewModel.currentAssetIdentifier {
+                    HoldsOverlayView(assetIdentifier: id, descriptor: descriptor)
+                }
             } header: {
                 Text(isAmbiguous ? "Possible Match (low confidence)" : "Matched Route")
             }
@@ -169,7 +171,9 @@ struct ImportFlowView: View {
     private func newRouteView(descriptor: RouteDescriptor) -> some View {
         Form {
             Section {
-                holdsOverlay(descriptor: descriptor)
+                if let id = viewModel.currentAssetIdentifier {
+                    HoldsOverlayView(assetIdentifier: id, descriptor: descriptor)
+                }
                 Text("No matching route found. This will create a new route.")
                     .font(.caption).foregroundStyle(.secondary)
             } header: { Text("New Route") }
@@ -233,20 +237,60 @@ struct ImportFlowView: View {
         }
     }
 
-    private func holdsOverlay(descriptor: RouteDescriptor) -> some View {
+}
+
+private struct HoldsOverlayView: View {
+    let assetIdentifier: String
+    let descriptor: RouteDescriptor
+    @State private var thumbnail: UIImage?
+
+    var body: some View {
         GeometryReader { geo in
             ZStack {
-                Color(.secondarySystemGroupedBackground)
+                if let thumbnail {
+                    Image(uiImage: thumbnail)
+                        .resizable()
+                        .scaledToFill()
+                        .clipped()
+                    Color.black.opacity(0.15)
+                } else {
+                    Color(.secondarySystemGroupedBackground)
+                }
                 ForEach(Array(descriptor.normalizedCentroids.enumerated()), id: \.offset) { _, pt in
                     Circle()
-                        .fill(Color.blue.opacity(0.8))
-                        .frame(width: 14, height: 14)
-                        .offset(x: CGFloat(pt.x) * geo.size.width - 7,
-                                y: CGFloat(pt.y) * geo.size.height - 7)
+                        .stroke(Color.white, lineWidth: 2)
+                        .background(Circle().fill(holdColor.opacity(0.75)))
+                        .frame(width: 18, height: 18)
+                        .offset(x: CGFloat(pt.x) * geo.size.width - 9,
+                                y: CGFloat(pt.y) * geo.size.height - 9)
                 }
             }
         }
-        .frame(height: 80)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .frame(height: 200)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .task { thumbnail = await loadThumbnail() }
+    }
+
+    private var holdColor: Color {
+        Color(hue: Double(descriptor.dominantHue), saturation: 0.85, brightness: 0.95)
+    }
+
+    private func loadThumbnail() async -> UIImage? {
+        let results = PHAsset.fetchAssets(withLocalIdentifiers: [assetIdentifier], options: nil)
+        guard let asset = results.firstObject else { return nil }
+        return await withCheckedContinuation { continuation in
+            let options = PHImageRequestOptions()
+            options.deliveryMode = .fastFormat
+            options.isNetworkAccessAllowed = true
+            options.resizeMode = .fast
+            PHImageManager.default().requestImage(
+                for: asset,
+                targetSize: CGSize(width: 800, height: 800),
+                contentMode: .aspectFit,
+                options: options
+            ) { image, _ in
+                continuation.resume(returning: image)
+            }
+        }
     }
 }
