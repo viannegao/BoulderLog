@@ -47,16 +47,20 @@ final class ImportViewModel {
         }
     }
 
-    private func withTimeout<T: Sendable>(seconds: Double, operation: @escaping @Sendable () async throws -> T) async throws -> T {
-        try await withThrowingTaskGroup(of: T.self) { group in
-            group.addTask { try await operation() }
-            group.addTask {
-                try await Task.sleep(for: .seconds(seconds))
-                throw CancellationError()
-            }
-            let result = try await group.next()!
-            group.cancelAll()
+    @MainActor
+    private func withTimeout<T: Sendable>(seconds: Double, operation: @escaping @MainActor () async throws -> T) async throws -> T {
+        let workTask = Task { @MainActor in try await operation() }
+        let timeoutTask = Task {
+            try await Task.sleep(for: .seconds(seconds))
+            workTask.cancel()
+        }
+        do {
+            let result = try await workTask.value
+            timeoutTask.cancel()
             return result
+        } catch {
+            timeoutTask.cancel()
+            throw error
         }
     }
 
