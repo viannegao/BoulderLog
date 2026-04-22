@@ -12,6 +12,8 @@ targets:
     platform: iOS
     sources:
       - BoulderLog
+    dependencies:
+      - sdk: PhotosUI.framework
     settings:
       base:
         SWIFT_VERSION: "5.9"
