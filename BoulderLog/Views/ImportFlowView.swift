@@ -23,6 +23,7 @@ struct ImportFlowView: View {
                 .sheet(isPresented: $showingPicker) {
                     PHPickerRepresentable { identifier in
                         showingPicker = false
+                        guard let identifier else { return }
                         Task { await viewModel.processSelection(assetIdentifier: identifier, context: modelContext) }
                     }
                     .ignoresSafeArea()

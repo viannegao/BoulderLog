@@ -2,7 +2,7 @@ import PhotosUI
 import SwiftUI
 
 struct PHPickerRepresentable: UIViewControllerRepresentable {
-    let onPick: (String) -> Void
+    let onPick: (String?) -> Void
 
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var config = PHPickerConfiguration(photoLibrary: .shared())
@@ -19,13 +19,11 @@ struct PHPickerRepresentable: UIViewControllerRepresentable {
     func makeCoordinator() -> Coordinator { Coordinator(onPick: onPick) }
 
     final class Coordinator: NSObject, PHPickerViewControllerDelegate {
-        let onPick: (String) -> Void
-        init(onPick: @escaping (String) -> Void) { self.onPick = onPick }
+        let onPick: (String?) -> Void
+        init(onPick: @escaping (String?) -> Void) { self.onPick = onPick }
 
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-            picker.dismiss(animated: true)
-            guard let identifier = results.first?.assetIdentifier else { return }
-            onPick(identifier)
+            onPick(results.first?.assetIdentifier)
         }
     }
 }
