@@ -6,7 +6,7 @@ struct ImportFlowView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @Query(sort: \Route.lastAttemptAt, order: .reverse) private var routes: [Route]
-    @State private var viewModel = ImportViewModel()
+    @StateObject private var viewModel = ImportViewModel()
     @State private var showingPicker = false
     @State private var photosStatus: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
 

@@ -1,5 +1,5 @@
 import SwiftData
-import Observation
+import Combine
 
 enum ImportState {
     case idle
@@ -12,11 +12,10 @@ enum ImportState {
     case error(String)
 }
 
-@Observable
-final class ImportViewModel {
-    var state: ImportState = .idle
-    var isSend = false
-    var notes = ""
+final class ImportViewModel: ObservableObject {
+    @Published var state: ImportState = .idle
+    @Published var isSend = false
+    @Published var notes = ""
     var currentAssetIdentifier: String?
 
     @MainActor
@@ -37,12 +36,15 @@ final class ImportViewModel {
                     : .ambiguous(route: route, confidence: confidence, descriptor: descriptor)
             case .newRoute(let descriptor):
                 state = .newRoute(descriptor: descriptor)
+                print("[BoulderLog] state set to newRoute")
             case .noHoldsDetected:
                 state = .noHoldsDetected(descriptor: nil)
+                print("[BoulderLog] state set to noHoldsDetected")
             case .duplicate(_):
                 state = .duplicate
             }
         } catch {
+            print("[BoulderLog] error: \(error)")
             state = .error(error.localizedDescription)
         }
     }
