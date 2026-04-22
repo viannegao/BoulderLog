@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftData
 import PhotosUI
+import Photos
 
 struct ImportFlowView: View {
     @Environment(\.modelContext) private var modelContext
@@ -8,6 +9,7 @@ struct ImportFlowView: View {
     @Query(sort: \Route.lastAttemptAt, order: .reverse) private var routes: [Route]
     @State private var viewModel = ImportViewModel()
     @State private var selectedItem: PhotosPickerItem?
+    @State private var photosStatus: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
 
     var body: some View {
         NavigationStack {
@@ -30,11 +32,7 @@ struct ImportFlowView: View {
     private var content: some View {
         switch viewModel.state {
         case .idle:
-            PhotosPicker(selection: $selectedItem, matching: .videos) {
-                Label("Choose Video", systemImage: "video.badge.plus")
-                    .font(.title3)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            idleView
 
         case .processing:
             VStack(spacing: 16) {
@@ -73,6 +71,42 @@ struct ImportFlowView: View {
             }
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+    }
+
+    private var idleView: some View {
+        Group {
+            if photosStatus == .limited {
+                VStack(spacing: 16) {
+                    Image(systemName: "photo.on.rectangle.angled")
+                        .font(.largeTitle)
+                        .foregroundStyle(.orange)
+                    Text("Full Photo Library access required")
+                        .font(.headline)
+                    Text("BoulderLog stores a reference to your video rather than copying it, which requires Full Access to your photo library.")
+                        .font(.caption)
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(.secondary)
+                    Button("Open Settings") {
+                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(url)
+                        }
+                    }
+                    .buttonStyle(.bordered)
+                }
+                .padding(32)
+            } else {
+                PhotosPicker(selection: $selectedItem, matching: .videos) {
+                    Label("Choose Video", systemImage: "video.badge.plus")
+                        .font(.title3)
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .task {
+            if photosStatus == .notDetermined {
+                photosStatus = await PHPhotoLibrary.requestAuthorization(for: .readWrite)
+            }
         }
     }
 
