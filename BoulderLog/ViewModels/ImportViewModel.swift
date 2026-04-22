@@ -20,12 +20,9 @@ final class ImportViewModel {
     var currentAssetIdentifier: String?
 
     @MainActor
-    func processSelection(itemIdentifier: String?, context: ModelContext) async {
+    func processSelection(assetIdentifier: String, context: ModelContext) async {
         state = .processing
-        guard let identifier = itemIdentifier else {
-            state = .error("Could not read asset identifier.")
-            return
-        }
+        let identifier = assetIdentifier
         currentAssetIdentifier = identifier
         do {
             let result = try await ImportPipeline.analyze(assetIdentifier: identifier, context: context)

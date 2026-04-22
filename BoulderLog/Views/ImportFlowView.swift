@@ -1,6 +1,5 @@
 import SwiftUI
 import SwiftData
-import PhotosUI
 import Photos
 
 struct ImportFlowView: View {
@@ -8,7 +7,7 @@ struct ImportFlowView: View {
     @Environment(\.dismiss) private var dismiss
     @Query(sort: \Route.lastAttemptAt, order: .reverse) private var routes: [Route]
     @State private var viewModel = ImportViewModel()
-    @State private var selectedItem: PhotosPickerItem?
+    @State private var showingPicker = false
     @State private var photosStatus: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
 
     var body: some View {
@@ -21,9 +20,12 @@ struct ImportFlowView: View {
                         Button("Cancel") { dismiss() }
                     }
                 }
-                .onChange(of: selectedItem) { _, item in
-                    guard let item else { return }
-                    Task { await viewModel.processSelection(itemIdentifier: item.itemIdentifier, context: modelContext) }
+                .sheet(isPresented: $showingPicker) {
+                    PHPickerRepresentable { identifier in
+                        showingPicker = false
+                        Task { await viewModel.processSelection(assetIdentifier: identifier, context: modelContext) }
+                    }
+                    .ignoresSafeArea()
                 }
         }
     }
@@ -96,7 +98,9 @@ struct ImportFlowView: View {
                 }
                 .padding(32)
             } else {
-                PhotosPicker(selection: $selectedItem, matching: .videos) {
+                Button {
+                    showingPicker = true
+                } label: {
                     Label("Choose Video", systemImage: "video.badge.plus")
                         .font(.title3)
                 }
